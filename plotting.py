@@ -7,7 +7,7 @@ import io
 from flask import send_file
 
 def plot_png():
-    data = pd.read_csv('/home/yasser/Documents/fyc/data/data_log.csv', parse_dates=['datetime'])  # Adjust as needed
+    data = pd.read_csv('data/data_log.csv', parse_dates=['datetime'])  # Adjust as needed
     data = data.tail(30)  # Get the last 30 records
 
     plt.figure(figsize=(12, 6))
