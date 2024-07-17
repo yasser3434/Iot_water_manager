@@ -2,12 +2,25 @@ import serial
 import time
 from datetime import datetime
 import os
+import pandas as pd
 
 def read_arduino():
-    # Replace '/dev/ttyACM0' with your Arduino's serial port
     arduino_port = "/dev/ttyACM0"
+    if arduino_port is None:
+        print("No Arduino found!")
+        return
+
     baud = 115200  # set the baud rate as per your Arduino code
-    filename = "data/data_log.csv"  # name of the file to save data
+
+    csv_path = os.path.join(os.path.dirname(__file__), 'data/data_log.csv')
+
+    # Ensure the directory exists
+    os.makedirs(os.path.dirname(csv_path), exist_ok=True)
+
+    # Check if the CSV file exists, create it with headers if it does not
+    if not os.path.isfile(csv_path):
+        df = pd.DataFrame(columns=["ppm", "datetime", "quality"])
+        df.to_csv(csv_path, index=False)
 
     ser = serial.Serial(arduino_port, baud)
 
@@ -17,23 +30,12 @@ def read_arduino():
     print("Connected to Arduino port:" + arduino_port)
     time.sleep(1)
 
-    file_exists = os.path.isfile(filename)
-
-    quality = ''
-
-    if not file_exists:
-        with open(filename, "a") as file:
-            file.write("ppm,datetime,quality\n")  # Writing header for CSV file
-            print("File created")
-            file.close()
-    else:
-        print("Appending to existing file")
+    file_exists = os.path.isfile(csv_path)
 
     print("Reading the data ...")
 
     while True:
-        with open(filename, "a") as file:
-
+        with open(csv_path, "a") as file:
             # Get the current time
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -45,7 +47,6 @@ def read_arduino():
                 data = '0'
 
             ppm_value = int(data)
-            # ppm_value = int(float(data.split(':')[-1].split('ppm')[0]))
 
             # Quality column condition
             if ppm_value < 50:
@@ -59,7 +60,9 @@ def read_arduino():
             else:
                 quality = 'Poor not good for drinking'
 
+            print("=" * 70)
             print(f"{ppm_value}, {current_time}, {quality}")
+            print("=" * 70)
 
             # Write data with timestamp
             file.write(f"{ppm_value},{current_time},{quality}\n")
