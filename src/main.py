@@ -5,7 +5,7 @@ import os
 
 def read_arduino():
     # Replace '/dev/ttyACM0' with your Arduino's serial port
-    arduino_port = "/dev/ttyACM1"
+    arduino_port = "/dev/ttyACM0"
     baud = 115200  # set the baud rate as per your Arduino code
     filename = "data/data_log.csv"  # name of the file to save data
 
