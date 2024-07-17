@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #9bd5f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: rgb(224, 224, 224);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+}
+
+.plot-container {
+    padding-right: 20px;
+}
+
+.quality-box {
+    width: 200px;
+    height: 100px;
+    margin: 10px 0;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    display: none;
+    border-radius: 4px;
+}
+
+#good-box { background-color: #4CAF50; }
+#error-box { background-color: #FFC107; color: black; }
+#fair-box { background-color: #FF9800; }
+#poor-box { background-color: #F44336; }

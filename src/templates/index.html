@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Plot</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Optional: Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="plot-container">
+            <img id="plot" src="/plot.png" style="max-width: 100%; height: auto;">
+        </div>
+        <div>
+            <div id="good-box" class="quality-box">Good to drink</div>
+            <div id="error-box" class="quality-box">WARNING !! ** PROBLEM OCCURED WITH THE TDS DETECTOR</div>
+            <div id="fair-box" class="quality-box">WARNING !! ** WATER QUALITY HAS DETERIORATED</div>
+            <div id="poor-box" class="quality-box">WARNING !! ** WATER IS NOT DRINKABLE</div>
+        </div>
+    </div>
+</body>
+</html>
